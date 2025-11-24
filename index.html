@@ -1,0 +1,377 @@
+import React, { useState } from 'react';
+import { 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  LineChart, Line, PieChart, Pie, Cell, AreaChart, Area, ComposedChart
+} from 'recharts';
+import { 
+  LayoutDashboard, TrendingUp, Users, ShoppingCart, 
+  CreditCard, Clock, MapPin, AlertCircle, CheckCircle2, ChevronRight, 
+  Wallet, DollarSign, Activity, Calendar
+} from 'lucide-react';
+
+// --- MOCK DATA (Based on previous analysis) ---
+const kpiData = [
+  { title: "Toplam Ciro", value: "322,966 ₺", change: "+4.5%", icon: TrendingUp, color: "text-green-600", bg: "bg-green-100" },
+  { title: "Toplam İşlem", value: "1,000", change: "Stabil", icon: ShoppingCart, color: "text-blue-600", bg: "bg-blue-100" },
+  { title: "Ortalama Sepet", value: "323 ₺", change: "-1.2%", icon: CreditCard, color: "text-purple-600", bg: "bg-purple-100" },
+  { title: "Müşteri Memnuniyeti", value: "6.97 / 10", change: "+0.3", icon: Users, color: "text-orange-600", bg: "bg-orange-100" },
+];
+
+const productSalesData = [
+  { name: 'Food & Bev', sales: 56144, fill: '#8884d8' },
+  { name: 'Fashion', sales: 54305, fill: '#82ca9d' },
+  { name: 'Sports', sales: 55122, fill: '#ffc658' },
+  { name: 'Electronic', sales: 54337, fill: '#ff8042' },
+  { name: 'Home', sales: 53861, fill: '#0088fe' },
+  { name: 'Health', sales: 49193, fill: '#00C49F' },
+];
+
+const hourlyData = [
+  { hour: '10:00', orders: 85 },
+  { hour: '11:00', orders: 92 },
+  { hour: '12:00', orders: 88 },
+  { hour: '13:00', orders: 95 },
+  { hour: '14:00', orders: 80 },
+  { hour: '15:00', orders: 76 },
+  { hour: '16:00', orders: 78 },
+  { hour: '17:00', orders: 82 },
+  { hour: '18:00', orders: 90 },
+  { hour: '19:00', orders: 115 }, // Peak
+  { hour: '20:00', orders: 98 },
+];
+
+const hypothesisData = [
+  { group: 'Üye (Member)', avgSpend: 327.79, color: '#3b82f6' },
+  { group: 'Normal', avgSpend: 318.12, color: '#94a3b8' },
+];
+
+const branchData = [
+  { name: 'Şube A (Yangon)', value: 340 },
+  { name: 'Şube B (Mandalay)', value: 332 },
+  { name: 'Şube C (Naypyitaw)', value: 328 },
+];
+
+// --- NEW DATA FOR SALES DETAILS ---
+const dailyTrendData = [
+  { date: '1 Jan', sales: 3200, profit: 150 },
+  { date: '5 Jan', sales: 4100, profit: 190 },
+  { date: '10 Jan', sales: 3800, profit: 170 },
+  { date: '15 Jan', sales: 5200, profit: 240 },
+  { date: '20 Jan', sales: 4800, profit: 220 },
+  { date: '25 Jan', sales: 5900, profit: 280 },
+  { date: '1 Feb', sales: 4300, profit: 200 },
+  { date: '5 Feb', sales: 3900, profit: 180 },
+  { date: '10 Feb', sales: 6100, profit: 290 },
+  { date: '15 Feb', sales: 5500, profit: 260 },
+  { date: '20 Feb', sales: 4700, profit: 210 },
+  { date: '25 Feb', sales: 6800, profit: 320 },
+  { date: '1 Mar', sales: 5100, profit: 230 },
+  { date: '5 Mar', sales: 4600, profit: 210 },
+  { date: '10 Mar', sales: 7200, profit: 340 },
+];
+
+const paymentMethodData = [
+  { name: 'Ewallet', value: 345, color: '#0088FE' },
+  { name: 'Cash', value: 344, color: '#00C49F' },
+  { name: 'Credit Card', value: 311, color: '#FFBB28' },
+];
+
+const cityFinancials = [
+  { city: 'Yangon', revenue: 106200, cogs: 101140, grossIncome: 5060 },
+  { city: 'Mandalay', revenue: 106198, cogs: 101138, grossIncome: 5060 },
+  { city: 'Naypyitaw', revenue: 110568, cogs: 105300, grossIncome: 5268 },
+];
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+// --- COMPONENTS ---
+
+const Card = ({ children, className = "" }) => (
+  <div className={`bg-white rounded-xl shadow-sm border border-slate-200 p-6 ${className}`}>
+    {children}
+  </div>
+);
+
+const SectionHeader = ({ title, subtitle }) => (
+  <div className="mb-6">
+    <h2 className="text-xl font-bold text-slate-800">{title}</h2>
+    <p className="text-sm text-slate-500">{subtitle}</p>
+  </div>
+);
+
+const KPICard = ({ item }) => (
+  <Card className="flex items-center justify-between">
+    <div>
+      <p className="text-sm font-medium text-slate-500">{item.title}</p>
+      <h3 className="text-2xl font-bold text-slate-800 mt-1">{item.value}</h3>
+      <span className={`text-xs font-medium px-2 py-1 rounded-full mt-2 inline-block ${item.color.replace('text', 'bg').replace('600', '100')} ${item.color}`}>
+        {item.change}
+      </span>
+    </div>
+    <div className={`p-3 rounded-full ${item.bg}`}>
+      <item.icon className={`w-6 h-6 ${item.color}`} />
+    </div>
+  </Card>
+);
+
+// ... (Existing Hypothesis & Insights components remain same conceptually, but simplified for brevity in this full file)
+
+export default function Dashboard() {
+  const [activeTab, setActiveTab] = useState('overview');
+
+  const renderOverview = () => (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        {/* Left Column: Charts */}
+        <div className="lg:col-span-2 space-y-8">
+          {/* Sales by Category */}
+          <Card>
+            <SectionHeader title="Kategori Bazlı Satış Performansı" subtitle="Toplam ciroya en çok katkı sağlayan ürün grupları" />
+            <div className="h-72">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={productSalesData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} dy={10} />
+                  <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
+                  <Tooltip 
+                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                    cursor={{fill: '#f1f5f9'}}
+                  />
+                  <Bar dataKey="sales" radius={[4, 4, 0, 0]}>
+                    {productSalesData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </Card>
+
+          {/* Hypothesis Mini Section */}
+          <Card className="bg-gradient-to-r from-blue-50 to-white">
+             <div className="flex items-start gap-4">
+                <div className="p-3 bg-blue-100 rounded-lg">
+                    <Activity className="text-blue-600 w-6 h-6" />
+                </div>
+                <div>
+                    <h3 className="font-bold text-slate-800">Hızlı Analiz: Üyelik Etkisi</h3>
+                    <p className="text-sm text-slate-600 mt-1">
+                        Üye ve Normal müşteriler arasında harcama farkı <strong>bulunamadı</strong> (P-Değeri: 0.53). 
+                        Sadakat programı revize edilmeli.
+                    </p>
+                </div>
+             </div>
+          </Card>
+        </div>
+
+        {/* Right Column: Branch & Insights */}
+        <div className="space-y-8">
+          {/* Branch Distribution */}
+          <Card>
+            <SectionHeader title="Şube Yoğunluğu" subtitle="İşlem hacminin şubelere dağılımı" />
+            <div className="h-64 flex justify-center">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={branchData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {branchData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend verticalAlign="bottom" height={36}/>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </Card>
+
+           {/* Hourly Trend (Small) */}
+           <Card>
+            <div className="flex items-center justify-between mb-4">
+               <h3 className="font-bold text-slate-800">Saatlik Yoğunluk</h3>
+               <Clock className="w-4 h-4 text-slate-400" />
+            </div>
+            <div className="h-40">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={hourlyData}>
+                  <defs>
+                    <linearGradient id="colorOrders" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <Tooltip />
+                  <Area type="monotone" dataKey="orders" stroke="#3b82f6" fillOpacity={1} fill="url(#colorOrders)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </Card>
+        </div>
+    </div>
+  );
+
+  const renderSalesDetails = () => (
+    <div className="space-y-8 animate-in fade-in duration-500">
+        
+        {/* Row 1: Sales Trend */}
+        <Card>
+            <div className="flex items-center justify-between mb-6">
+                <div>
+                    <h2 className="text-xl font-bold text-slate-800">Satış Trend Analizi (3 Aylık)</h2>
+                    <p className="text-sm text-slate-500">Günlük bazda ciro değişimi</p>
+                </div>
+                <div className="bg-slate-100 p-2 rounded-lg">
+                    <Calendar className="w-5 h-5 text-slate-600" />
+                </div>
+            </div>
+            <div className="h-80">
+                <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={dailyTrendData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                        <defs>
+                            <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4}/>
+                                <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                            </linearGradient>
+                        </defs>
+                        <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fill: '#64748b'}} />
+                        <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b'}} unit="₺" />
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                        <Tooltip />
+                        <Area type="monotone" dataKey="sales" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorSales)" name="Günlük Ciro" />
+                    </AreaChart>
+                </ResponsiveContainer>
+            </div>
+        </Card>
+
+        {/* Row 2: Payment & City Financials */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Payment Methods */}
+            <Card>
+                <SectionHeader title="Ödeme Yöntemi Dağılımı" subtitle="Müşteri tercihlerine göre işlem hacmi" />
+                <div className="h-64 flex items-center justify-center">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                            <Pie
+                                data={paymentMethodData}
+                                cx="50%"
+                                cy="50%"
+                                innerRadius={0}
+                                outerRadius={80}
+                                paddingAngle={2}
+                                dataKey="value"
+                            >
+                                {paymentMethodData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                ))}
+                            </Pie>
+                            <Tooltip formatter={(value) => `${value} İşlem`} />
+                            <Legend verticalAlign="bottom" height={36}/>
+                        </PieChart>
+                    </ResponsiveContainer>
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs text-slate-500">
+                    <div className="bg-blue-50 p-2 rounded">Ewallet: %34.5</div>
+                    <div className="bg-green-50 p-2 rounded">Cash: %34.4</div>
+                    <div className="bg-yellow-50 p-2 rounded">Credit: %31.1</div>
+                </div>
+            </Card>
+
+            {/* City Financials (Profitability) */}
+            <Card>
+                <SectionHeader title="Şehir Bazlı Karlılık Analizi" subtitle="Gelir vs. Maliyet (COGS)" />
+                <div className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={cityFinancials} layout="vertical" margin={{left: 20}}>
+                            <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+                            <XAxis type="number" hide />
+                            <YAxis dataKey="city" type="category" width={80} tick={{fill: '#475569', fontWeight: 600}} />
+                            <Tooltip cursor={{fill: 'transparent'}} formatter={(value) => `${value.toLocaleString()} ₺`} />
+                            <Legend />
+                            <Bar dataKey="revenue" name="Ciro" fill="#3b82f6" stackId="a" radius={[0, 4, 4, 0]} barSize={20} />
+                            <Bar dataKey="grossIncome" name="Brüt Kar" fill="#22c55e" stackId="a" radius={[0, 4, 4, 0]} barSize={20} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
+                <div className="mt-4 p-3 bg-slate-50 rounded-lg text-sm text-slate-600">
+                    <p className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-green-600" />
+                        Naypyitaw şubesi marjinal olarak en yüksek karlılığa sahip.
+                    </p>
+                </div>
+            </Card>
+        </div>
+
+        {/* Row 3: Detailed Metrics Table */}
+        <Card>
+             <SectionHeader title="Kritik Finansal Metrikler" subtitle="Operasyonel verimlilik göstergeleri" />
+             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="p-4 rounded-lg bg-indigo-50 border border-indigo-100">
+                    <p className="text-xs text-indigo-600 font-bold uppercase">Ortalama Vergi</p>
+                    <p className="text-xl font-bold text-slate-800 mt-1">15.3 ₺</p>
+                </div>
+                <div className="p-4 rounded-lg bg-orange-50 border border-orange-100">
+                    <p className="text-xs text-orange-600 font-bold uppercase">Brüt Marj %</p>
+                    <p className="text-xl font-bold text-slate-800 mt-1">4.76 %</p>
+                </div>
+                <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-100">
+                    <p className="text-xs text-emerald-600 font-bold uppercase">En Yüksek Fatura</p>
+                    <p className="text-xl font-bold text-slate-800 mt-1">1,042 ₺</p>
+                </div>
+                <div className="p-4 rounded-lg bg-pink-50 border border-pink-100">
+                    <p className="text-xs text-pink-600 font-bold uppercase">En Düşük Fatura</p>
+                    <p className="text-xl font-bold text-slate-800 mt-1">10.6 ₺</p>
+                </div>
+             </div>
+        </Card>
+
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
+      {/* Header */}
+      <header className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+            <LayoutDashboard className="text-blue-600" />
+            Süpermarket <span className="text-blue-600">Analitik Paneli</span>
+          </h1>
+          <p className="text-slate-500 mt-1 ml-9">3 Aylık Performans Özeti ve İş Zekası Raporu</p>
+        </div>
+        <div className="flex bg-white rounded-lg p-1 shadow-sm border border-slate-200">
+          <button 
+            onClick={() => setActiveTab('overview')}
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-all flex items-center gap-2 ${activeTab === 'overview' ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+          >
+            <LayoutDashboard className="w-4 h-4" />
+            Genel Bakış
+          </button>
+          <button 
+             onClick={() => setActiveTab('sales')}
+             className={`px-4 py-2 text-sm font-medium rounded-md transition-all flex items-center gap-2 ${activeTab === 'sales' ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+          >
+            <DollarSign className="w-4 h-4" />
+            Satış Detayları
+          </button>
+        </div>
+      </header>
+
+      {/* KPI Grid (Always Visible) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {kpiData.map((item, idx) => (
+          <KPICard key={idx} item={item} />
+        ))}
+      </div>
+
+      {/* Dynamic Content */}
+      {activeTab === 'overview' ? renderOverview() : renderSalesDetails()}
+      
+    </div>
+  );
+}
