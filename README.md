@@ -6,3 +6,6 @@ https://colab.research.google.com/drive/1Vm87cU0xDAa9aIXxvw0qn1xH5MMd6pRZ?usp=sh
 
 Kod 2 Python Temelleri-1 
 https://colab.research.google.com/drive/1_yWvPBaE9h8fX9KDx-ikgOUqcYl3bUfb?usp=sharing
+
+Kod 3 Veri Bilimine Giriş
+https://colab.research.google.com/drive/1ecTNJkalQ_z2VTN2IEvmVGw8lnVNqoth?usp=sharing
