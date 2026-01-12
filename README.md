@@ -10,5 +10,5 @@ https://colab.research.google.com/drive/1_yWvPBaE9h8fX9KDx-ikgOUqcYl3bUfb?usp=sh
 Kod 3 Veri Bilimine Giriş
 https://colab.research.google.com/drive/1ecTNJkalQ_z2VTN2IEvmVGw8lnVNqoth?usp=sharing
 
-Titanic Submission
+Kod 4 Titanic Submission
 https://www.kaggle.com/code/drmurataltun/ecs-vb-titanic
