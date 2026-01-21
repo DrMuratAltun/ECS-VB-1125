@@ -12,3 +12,12 @@ https://colab.research.google.com/drive/1ecTNJkalQ_z2VTN2IEvmVGw8lnVNqoth?usp=sh
 
 Kod 4 Titanic Submission
 https://www.kaggle.com/code/drmurataltun/ecs-vb-titanic
+
+Kod 5 Predict Car 
+https://colab.research.google.com/drive/1f2i4Ed0GK_8nbHpEhm8mZ8WWXZd4a9zV?usp=sharing
+
+Kod 6 Veri Çekme
+https://colab.research.google.com/drive/1yUCJpdwgDh4FedyIm-GJTt2QtasucuhC?usp=sharing
+
+Kod 7 Yarışan Grafikler
+https://colab.research.google.com/drive/1lDgkKBgGuKL0cWDBEYt0BX0wNEvuktFZ?usp=sharing
