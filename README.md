@@ -1,6 +1,9 @@
 # ECS-VB-1125
 Europe Coding School Kasım 2025 Veri Bilimi Programı
 
+GitHub üzerinden web sayfası oluşturma https://drmurataltun.github.io/
+Süpermarket Veri seti için (Gemini Vibe Coding) BI Dashboard uyglaması
+
 Kod 1 AI-BI Yapay Zeka ile İş Analitiği 
 https://colab.research.google.com/drive/1Vm87cU0xDAa9aIXxvw0qn1xH5MMd6pRZ?usp=sharing
 
@@ -21,3 +24,6 @@ https://colab.research.google.com/drive/1yUCJpdwgDh4FedyIm-GJTt2QtasucuhC?usp=sh
 
 Kod 7 Yarışan Grafikler
 https://colab.research.google.com/drive/1lDgkKBgGuKL0cWDBEYt0BX0wNEvuktFZ?usp=sharing
+
+Kod 8 : HF uygulaması
+https://huggingface.co/spaces/drmurataltun/arac_fyt_tahmin
