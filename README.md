@@ -20,10 +20,13 @@ Kod 5 Predict Car
 https://colab.research.google.com/drive/1f2i4Ed0GK_8nbHpEhm8mZ8WWXZd4a9zV?usp=sharing
 
 Kod 6 Veri Çekme
-https://colab.research.google.com/drive/1yUCJpdwgDh4FedyIm-GJTt2QtasucuhC?usp=sharing
+https://colab.research.google.com/drive/1Jq8jbvrkmas5-7lFdLHHM702vQbDV5q6?usp=sharing
 
 Kod 7 Yarışan Grafikler
 https://colab.research.google.com/drive/1lDgkKBgGuKL0cWDBEYt0BX0wNEvuktFZ?usp=sharing
 
 Kod 8 : HF uygulaması
 https://huggingface.co/spaces/drmurataltun/arac_fyt_tahmin
+
+Kod 9
+https://colab.research.google.com/drive/13oHjNE-IEdeBq5mL2lhZ8Yy5_Op4kMJQ?usp=sharing
