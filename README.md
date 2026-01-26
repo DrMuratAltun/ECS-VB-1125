@@ -28,5 +28,5 @@ https://colab.research.google.com/drive/1lDgkKBgGuKL0cWDBEYt0BX0wNEvuktFZ?usp=sh
 Kod 8 : HF uygulaması
 https://huggingface.co/spaces/drmurataltun/arac_fyt_tahmin
 
-Kod 9
+Kod 9 : Image Slider
 https://colab.research.google.com/drive/13oHjNE-IEdeBq5mL2lhZ8Yy5_Op4kMJQ?usp=sharing
