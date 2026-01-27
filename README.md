@@ -39,3 +39,7 @@ https://colab.research.google.com/drive/19YcW2fkTfQcEad64e8Of1g143AYyOw2g?usp=sh
 
 Kod 12: Gemini API ChatBot
 https://colab.research.google.com/drive/13cAsQiL8higTsIwO40H3BNQwbGnClf5K?usp=sharing
+
+
+Extra
+WordCloud Uygulaması
