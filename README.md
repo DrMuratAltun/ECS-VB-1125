@@ -42,4 +42,6 @@ https://colab.research.google.com/drive/13cAsQiL8higTsIwO40H3BNQwbGnClf5K?usp=sh
 
 
 Extra
+
 WordCloud Uygulaması
+Restoran Yorumları
