@@ -36,3 +36,6 @@ https://colab.research.google.com/drive/1zQScf26e46bozYYulgeVDxO1x10142KS?usp=sh
 
 Kod 11: Online Gradio Form
 https://colab.research.google.com/drive/19YcW2fkTfQcEad64e8Of1g143AYyOw2g?usp=sharing
+
+Kod 12: Gemini API ChatBot
+https://colab.research.google.com/drive/13cAsQiL8higTsIwO40H3BNQwbGnClf5K?usp=sharing
