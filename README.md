@@ -30,3 +30,9 @@ https://huggingface.co/spaces/drmurataltun/arac_fyt_tahmin
 
 Kod 9 : Image Slider
 https://colab.research.google.com/drive/13oHjNE-IEdeBq5mL2lhZ8Yy5_Op4kMJQ?usp=sharing
+
+Kod 10: Image Downloader
+https://colab.research.google.com/drive/1zQScf26e46bozYYulgeVDxO1x10142KS?usp=sharing
+
+Kod 11: Online Gradio Form
+https://colab.research.google.com/drive/19YcW2fkTfQcEad64e8Of1g143AYyOw2g?usp=sharing
