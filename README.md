@@ -43,7 +43,7 @@ https://colab.research.google.com/drive/13cAsQiL8higTsIwO40H3BNQwbGnClf5K?usp=sh
 Kod 13: Google Trends
 https://colab.research.google.com/drive/1gfWeEY9tDi0Oc8kPzPcvw6KB_d_71ouq?usp=sharing
 
-Kod 14: Google HAritalar Yprum çekme ve analiz  
+Kod 14: Google Haritalar Yorum çekme ve analiz  
 https://colab.research.google.com/drive/114siCn-N8-G0JUFv7sGP7PfeJ1e9AROC?usp=sharing
 
 # Extra
