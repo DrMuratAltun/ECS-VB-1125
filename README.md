@@ -45,3 +45,6 @@ Extra
 
 WordCloud Uygulaması
 Restoran Yorumları
+
+Label Studio
+https://huggingface.co/spaces/drmurataltun/LblStudio
