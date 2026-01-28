@@ -48,3 +48,6 @@ Restoran Yorumları
 
 Label Studio
 https://huggingface.co/spaces/drmurataltun/LblStudio
+
+Bir GitHub reposunun readme.md dosyasının içeriğini AntiGravity e prompt olarak eklerseniz kurulumu kendisi yapacaktır.
+Uygulamayı bir kere çalıştırdıktan sonra .bat uzantılı bir dosyaya kolayca çalışmasını sağlatyacak ayarlamalar yapmasını isteyn ve artık sadece bu dosyayay tıklayarak uygulamayı çalıtırabilirsiniz.
