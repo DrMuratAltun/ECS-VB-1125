@@ -44,6 +44,8 @@ https://colab.research.google.com/drive/13cAsQiL8higTsIwO40H3BNQwbGnClf5K?usp=sh
 Extra
 
 WordCloud Uygulaması
+https://colab.research.google.com/drive/1aFy4WmMxYfLfRsg4zu8E-r8ZOiuMiPQh?usp=sharing
+
 Restoran Yorumları
 
 Label Studio
